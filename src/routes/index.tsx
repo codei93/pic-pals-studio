@@ -1,24 +1,42 @@
 import { createFileRoute } from "@tanstack/react-router";
+import logoDark from "@/assets/logo-dark.png.asset.json";
+import logoLight from "@/assets/logo-light.png.asset.json";
 
-// No head() here: the home route inherits title/description/og/twitter from
-// __root.tsx, and ships no og:image so serve-time hosting can inject the
-// project's social preview (explicit og:image or latest screenshot).
 export const Route = createFileRoute("/")({
+  head: () => ({
+    meta: [
+      { title: "TryDiscreet — Discreet. Private. Yours." },
+      {
+        name: "description",
+        content:
+          "TryDiscreet is a discreet, private creator platform. Sign in to your fan or creator portal.",
+      },
+      { property: "og:title", content: "TryDiscreet — Discreet. Private. Yours." },
+      {
+        property: "og:description",
+        content:
+          "TryDiscreet is a discreet, private creator platform. Sign in to your fan or creator portal.",
+      },
+    ],
+  }),
   component: Index,
 });
 
-// IMPORTANT: Replace this placeholder. See ./README.md for routing conventions.
 function Index() {
   return (
-    <div
-      className="flex min-h-screen items-center justify-center"
-      style={{ backgroundColor: "#fcfbf8" }}
-    >
-      <img
-        data-lovable-blank-page-placeholder="REMOVE_THIS"
-        src="https://cdn.gpteng.co/blank-app-v1.svg"
-        alt="Your app will live here!"
-      />
+    <div className="min-h-screen bg-background">
+      <header className="flex h-16 items-center border-b border-border px-6">
+        <img src={logoDark.url} alt="TryDiscreet" className="hidden max-h-10 dark:block" />
+        <img src={logoLight.url} alt="TryDiscreet" className="max-h-10 dark:hidden" />
+      </header>
+      <main className="mx-auto max-w-3xl px-6 py-20 text-center">
+        <h1 className="text-4xl font-bold tracking-tight text-foreground">
+          Discreet. Private. Yours.
+        </h1>
+        <p className="mt-4 text-muted-foreground">
+          The TryDiscreet portal — coming together next.
+        </p>
+      </main>
     </div>
   );
 }
