@@ -46,7 +46,7 @@ export type Creator = {
   stories: Story[];
 };
 
-const g = [
+const gradients = [
   "linear-gradient(150deg,#3b1029,#e91e8c33,#131313)",
   "linear-gradient(150deg,#1b1035,#a855f733,#131313)",
   "linear-gradient(150deg,#2c1010,#f59e0b33,#131313)",
@@ -54,6 +54,8 @@ const g = [
   "linear-gradient(150deg,#10241a,#22c55e33,#131313)",
   "linear-gradient(150deg,#2a1030,#e91e8c44,#131313)",
 ];
+
+const g = (i: number): string => gradients[((i % gradients.length) + gradients.length) % gradients.length] as string;
 
 function makePosts(seed: number): Post[] {
   return [
@@ -64,7 +66,7 @@ function makePosts(seed: number): Post[] {
       price: 0,
       likes: 320 + seed * 11,
       postedAgo: "2h ago",
-      gradient: g[seed % 6],
+      gradient: g(seed % 6),
     },
     {
       id: `p${seed}2`,
@@ -73,7 +75,7 @@ function makePosts(seed: number): Post[] {
       price: 5000,
       likes: 210 + seed * 7,
       postedAgo: "6h ago",
-      gradient: g[(seed + 1) % 6],
+      gradient: g((seed + 1) % 6),
     },
     {
       id: `p${seed}3`,
@@ -82,7 +84,7 @@ function makePosts(seed: number): Post[] {
       price: 12000,
       likes: 180 + seed * 5,
       postedAgo: "1d ago",
-      gradient: g[(seed + 2) % 6],
+      gradient: g((seed + 2) % 6),
     },
     {
       id: `p${seed}4`,
@@ -91,7 +93,7 @@ function makePosts(seed: number): Post[] {
       price: 0,
       likes: 145 + seed * 3,
       postedAgo: "2d ago",
-      gradient: g[(seed + 3) % 6],
+      gradient: g((seed + 3) % 6),
     },
   ];
 }
@@ -103,21 +105,21 @@ function makeStories(seed: number): Story[] {
       price: 2000,
       expiresIn: "4h 30m",
       expired: false,
-      gradient: g[seed % 6],
+      gradient: g(seed % 6),
     },
     {
       id: `s${seed}2`,
       price: 1500,
       expiresIn: "12h 05m",
       expired: false,
-      gradient: g[(seed + 2) % 6],
+      gradient: g((seed + 2) % 6),
     },
     {
       id: `s${seed}3`,
       price: 1500,
       expiresIn: "0m",
       expired: true,
-      gradient: g[(seed + 4) % 6],
+      gradient: g((seed + 4) % 6),
     },
   ];
 }
@@ -131,7 +133,7 @@ export const CREATORS: Creator[] = [
     followers: 12400,
     tags: ["Curvy", "Brunette", "Tattooed"],
     featured: true,
-    gradient: g[0],
+    gradient: g(0),
     socials: { instagram: "naomi.k", twitter: "naomik", tiktok: "naomi.k" },
     phone: { masked: "+256 *** *** ***", real: "+256 772 481 220", price: 15000 },
     posts: makePosts(1),
@@ -145,7 +147,7 @@ export const CREATORS: Creator[] = [
     followers: 8700,
     tags: ["Athletic", "Fitness", "Natural"],
     featured: true,
-    gradient: g[1],
+    gradient: g(1),
     socials: { instagram: "zara.flex", twitter: "zaraflex" },
     phone: { masked: "+256 *** *** ***", real: "+256 704 118 903", price: 12000 },
     posts: makePosts(2),
@@ -159,7 +161,7 @@ export const CREATORS: Creator[] = [
     followers: 5300,
     tags: ["Petite", "Blonde", "Pierced"],
     featured: false,
-    gradient: g[2],
+    gradient: g(2),
     socials: { instagram: "amber.lee" },
     phone: { masked: "+256 *** *** ***", real: "+256 758 220 114", price: 10000 },
     posts: makePosts(3),
@@ -173,7 +175,7 @@ export const CREATORS: Creator[] = [
     followers: 9100,
     tags: ["Redhead", "Curvy", "Natural"],
     featured: false,
-    gradient: g[3],
+    gradient: g(3),
     socials: { twitter: "sasha_red", tiktok: "sasha.red" },
     phone: { masked: "+256 *** *** ***", real: "+256 787 664 331", price: 14000 },
     posts: makePosts(4),
@@ -187,7 +189,7 @@ export const CREATORS: Creator[] = [
     followers: 15800,
     tags: ["Tattooed", "Pierced", "Athletic"],
     featured: true,
-    gradient: g[4],
+    gradient: g(4),
     socials: { instagram: "inked.ivy", twitter: "inkedivy" },
     phone: { masked: "+256 *** *** ***", real: "+256 701 993 570", price: 18000 },
     posts: makePosts(5),
@@ -201,7 +203,7 @@ export const CREATORS: Creator[] = [
     followers: 4200,
     tags: ["Blonde", "Natural", "Petite"],
     featured: false,
-    gradient: g[5],
+    gradient: g(5),
     socials: { instagram: "mellow.mimi" },
     phone: { masked: "+256 *** *** ***", real: "+256 776 302 448", price: 9000 },
     posts: makePosts(6),
@@ -248,11 +250,11 @@ export type Purchase = {
 };
 
 export const INITIAL_PURCHASES: Purchase[] = [
-  { id: "u1", kind: "PPV Photo", creator: "naomi", credits: 5000, date: "12 Sep 2026", expiresInDays: 28, gradient: g[0] },
-  { id: "u2", kind: "PPV Video", creator: "zaraflex", credits: 12000, date: "10 Sep 2026", expiresInDays: 26, gradient: g[1] },
-  { id: "u3", kind: "Phone Number", creator: "inkedivy", credits: 18000, date: "7 Sep 2026", expiresInDays: null, gradient: g[4] },
-  { id: "u4", kind: "Custom Request", creator: "sashared", credits: 25000, date: "3 Sep 2026", expiresInDays: 19, gradient: g[3] },
-  { id: "u5", kind: "Story", creator: "amberlee", credits: 1500, date: "20 Aug 2026", expiresInDays: 0, gradient: g[2] },
+  { id: "u1", kind: "PPV Photo", creator: "naomi", credits: 5000, date: "12 Sep 2026", expiresInDays: 28, gradient: g(0) },
+  { id: "u2", kind: "PPV Video", creator: "zaraflex", credits: 12000, date: "10 Sep 2026", expiresInDays: 26, gradient: g(1) },
+  { id: "u3", kind: "Phone Number", creator: "inkedivy", credits: 18000, date: "7 Sep 2026", expiresInDays: null, gradient: g(4) },
+  { id: "u4", kind: "Custom Request", creator: "sashared", credits: 25000, date: "3 Sep 2026", expiresInDays: 19, gradient: g(3) },
+  { id: "u5", kind: "Story", creator: "amberlee", credits: 1500, date: "20 Aug 2026", expiresInDays: 0, gradient: g(2) },
 ];
 
 export type Message = {
@@ -281,7 +283,7 @@ export const THREADS: Thread[] = [
       { id: "m1", from: "creator", text: "Hey you 👋 thanks for unlocking my set!", time: "09:31" },
       { id: "m2", from: "fan", text: "Loved it. Anything new coming today?", time: "09:35" },
       { id: "m3", from: "creator", text: "Just finished a private video. Want a peek?", time: "09:40" },
-      { id: "m4", from: "creator", ppv: { price: 8000, gradient: g[0] }, time: "09:42" },
+      { id: "m4", from: "creator", ppv: { price: 8000, gradient: g(0) }, time: "09:42" },
     ],
   },
   {
@@ -301,7 +303,7 @@ export const THREADS: Thread[] = [
     time: "Mon",
     messages: [
       { id: "m1", from: "creator", text: "Your custom request is ready ✨", time: "11:10" },
-      { id: "m2", from: "creator", ppv: { price: 15000, gradient: g[4] }, time: "11:11" },
+      { id: "m2", from: "creator", ppv: { price: 15000, gradient: g(4) }, time: "11:11" },
     ],
   },
 ];
