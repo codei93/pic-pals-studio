@@ -25,7 +25,7 @@ export const Route = createFileRoute("/models/$username")({
       ],
     };
   },
-  component: CreatorProfile;
+  component: CreatorProfile,
 });
 
 function CreatorProfile() {
