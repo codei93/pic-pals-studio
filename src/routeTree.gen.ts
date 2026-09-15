@@ -10,33 +10,141 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as FeedRouteImport } from './routes/feed'
+import { Route as LoginRouteImport } from './routes/login'
+import { Route as PurchasesRouteImport } from './routes/purchases'
+import { Route as RegisterRouteImport } from './routes/register'
+import { Route as WalletRouteImport } from './routes/wallet'
+import { Route as ChatIndexRouteImport } from './routes/chat.index'
+import { Route as ChatThreadIdRouteImport } from './routes/chat.$threadId'
+import { Route as ModelsUsernameRouteImport } from './routes/models.$username'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const FeedRoute = FeedRouteImport.update({
+  id: '/feed',
+  path: '/feed',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LoginRoute = LoginRouteImport.update({
+  id: '/login',
+  path: '/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PurchasesRoute = PurchasesRouteImport.update({
+  id: '/purchases',
+  path: '/purchases',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RegisterRoute = RegisterRouteImport.update({
+  id: '/register',
+  path: '/register',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const WalletRoute = WalletRouteImport.update({
+  id: '/wallet',
+  path: '/wallet',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ChatIndexRoute = ChatIndexRouteImport.update({
+  id: '/chat/',
+  path: '/chat/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ChatThreadIdRoute = ChatThreadIdRouteImport.update({
+  id: '/chat/$threadId',
+  path: '/chat/$threadId',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ModelsUsernameRoute = ModelsUsernameRouteImport.update({
+  id: '/models/$username',
+  path: '/models/$username',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/feed': typeof FeedRoute
+  '/login': typeof LoginRoute
+  '/purchases': typeof PurchasesRoute
+  '/register': typeof RegisterRoute
+  '/wallet': typeof WalletRoute
+  '/chat/$threadId': typeof ChatThreadIdRoute
+  '/models/$username': typeof ModelsUsernameRoute
+  '/chat/': typeof ChatIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/feed': typeof FeedRoute
+  '/login': typeof LoginRoute
+  '/purchases': typeof PurchasesRoute
+  '/register': typeof RegisterRoute
+  '/wallet': typeof WalletRoute
+  '/chat/$threadId': typeof ChatThreadIdRoute
+  '/models/$username': typeof ModelsUsernameRoute
+  '/chat': typeof ChatIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/feed': typeof FeedRoute
+  '/login': typeof LoginRoute
+  '/purchases': typeof PurchasesRoute
+  '/register': typeof RegisterRoute
+  '/wallet': typeof WalletRoute
+  '/chat/$threadId': typeof ChatThreadIdRoute
+  '/models/$username': typeof ModelsUsernameRoute
+  '/chat/': typeof ChatIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/feed'
+    | '/login'
+    | '/purchases'
+    | '/register'
+    | '/wallet'
+    | '/chat/$threadId'
+    | '/models/$username'
+    | '/chat/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/feed'
+    | '/login'
+    | '/purchases'
+    | '/register'
+    | '/wallet'
+    | '/chat/$threadId'
+    | '/models/$username'
+    | '/chat'
+  id:
+    | '__root__'
+    | '/'
+    | '/feed'
+    | '/login'
+    | '/purchases'
+    | '/register'
+    | '/wallet'
+    | '/chat/$threadId'
+    | '/models/$username'
+    | '/chat/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  FeedRoute: typeof FeedRoute
+  LoginRoute: typeof LoginRoute
+  PurchasesRoute: typeof PurchasesRoute
+  RegisterRoute: typeof RegisterRoute
+  WalletRoute: typeof WalletRoute
+  ChatThreadIdRoute: typeof ChatThreadIdRoute
+  ModelsUsernameRoute: typeof ModelsUsernameRoute
+  ChatIndexRoute: typeof ChatIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +156,75 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/feed': {
+      id: '/feed'
+      path: '/feed'
+      fullPath: '/feed'
+      preLoaderRoute: typeof FeedRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/login': {
+      id: '/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof LoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/purchases': {
+      id: '/purchases'
+      path: '/purchases'
+      fullPath: '/purchases'
+      preLoaderRoute: typeof PurchasesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/register': {
+      id: '/register'
+      path: '/register'
+      fullPath: '/register'
+      preLoaderRoute: typeof RegisterRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/wallet': {
+      id: '/wallet'
+      path: '/wallet'
+      fullPath: '/wallet'
+      preLoaderRoute: typeof WalletRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/chat/': {
+      id: '/chat/'
+      path: '/chat'
+      fullPath: '/chat/'
+      preLoaderRoute: typeof ChatIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/chat/$threadId': {
+      id: '/chat/$threadId'
+      path: '/chat/$threadId'
+      fullPath: '/chat/$threadId'
+      preLoaderRoute: typeof ChatThreadIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/models/$username': {
+      id: '/models/$username'
+      path: '/models/$username'
+      fullPath: '/models/$username'
+      preLoaderRoute: typeof ModelsUsernameRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  FeedRoute: FeedRoute,
+  LoginRoute: LoginRoute,
+  PurchasesRoute: PurchasesRoute,
+  RegisterRoute: RegisterRoute,
+  WalletRoute: WalletRoute,
+  ChatThreadIdRoute: ChatThreadIdRoute,
+  ModelsUsernameRoute: ModelsUsernameRoute,
+  ChatIndexRoute: ChatIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
