@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useState } from "react";
+import { useState, type ReactNode } from "react";
 
 export const Route = createFileRoute("/register")({
   head: () => ({
@@ -93,7 +93,7 @@ function Register() {
   );
 }
 
-function Field({ label, children }: { label: string; children: React.ReactNode }) {
+function Field({ label, children }: { label: string; children: ReactNode }) {
   return (
     <label className="block space-y-1.5">
       <span className="text-xs font-semibold text-muted-foreground">{label}</span>

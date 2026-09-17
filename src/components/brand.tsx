@@ -1,4 +1,5 @@
 import { Link } from "@tanstack/react-router";
+import type { ReactNode } from "react";
 import logoDark from "@/assets/logo-dark.png.asset.json";
 import logoLight from "@/assets/logo-light.png.asset.json";
 import type { PurchaseKind } from "@/lib/mock-data";
@@ -90,7 +91,7 @@ export function EmptyState({
   action,
 }: {
   title: string;
-  action?: React.ReactNode;
+  action?: ReactNode;
 }) {
   return (
     <div className="card-surface flex flex-col items-center gap-4 py-14 text-center">
