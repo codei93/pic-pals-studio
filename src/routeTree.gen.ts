@@ -17,7 +17,18 @@ import { Route as RegisterRouteImport } from './routes/register'
 import { Route as WalletRouteImport } from './routes/wallet'
 import { Route as ChatIndexRouteImport } from './routes/chat.index'
 import { Route as ChatThreadIdRouteImport } from './routes/chat.$threadId'
+import { Route as CreatorApplyRouteImport } from './routes/creator.apply'
+import { Route as CreatorChatRouteImport } from './routes/creator.chat'
+import { Route as CreatorContentRouteImport } from './routes/creator.content'
+import { Route as CreatorDashboardRouteImport } from './routes/creator.dashboard'
+import { Route as CreatorEarningsRouteImport } from './routes/creator.earnings'
+import { Route as CreatorKycRouteImport } from './routes/creator.kyc'
+import { Route as CreatorPhoneRouteImport } from './routes/creator.phone'
+import { Route as CreatorRequestsRouteImport } from './routes/creator.requests'
+import { Route as CreatorSettingsRouteImport } from './routes/creator.settings'
+import { Route as CreatorStoriesRouteImport } from './routes/creator.stories'
 import { Route as ModelsUsernameRouteImport } from './routes/models.$username'
+import { Route as CreatorContentNewRouteImport } from './routes/creator.content.new'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -59,10 +70,65 @@ const ChatThreadIdRoute = ChatThreadIdRouteImport.update({
   path: '/chat/$threadId',
   getParentRoute: () => rootRouteImport,
 } as any)
+const CreatorApplyRoute = CreatorApplyRouteImport.update({
+  id: '/creator/apply',
+  path: '/creator/apply',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CreatorChatRoute = CreatorChatRouteImport.update({
+  id: '/creator/chat',
+  path: '/creator/chat',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CreatorContentRoute = CreatorContentRouteImport.update({
+  id: '/creator/content',
+  path: '/creator/content',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CreatorDashboardRoute = CreatorDashboardRouteImport.update({
+  id: '/creator/dashboard',
+  path: '/creator/dashboard',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CreatorEarningsRoute = CreatorEarningsRouteImport.update({
+  id: '/creator/earnings',
+  path: '/creator/earnings',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CreatorKycRoute = CreatorKycRouteImport.update({
+  id: '/creator/kyc',
+  path: '/creator/kyc',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CreatorPhoneRoute = CreatorPhoneRouteImport.update({
+  id: '/creator/phone',
+  path: '/creator/phone',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CreatorRequestsRoute = CreatorRequestsRouteImport.update({
+  id: '/creator/requests',
+  path: '/creator/requests',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CreatorSettingsRoute = CreatorSettingsRouteImport.update({
+  id: '/creator/settings',
+  path: '/creator/settings',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CreatorStoriesRoute = CreatorStoriesRouteImport.update({
+  id: '/creator/stories',
+  path: '/creator/stories',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ModelsUsernameRoute = ModelsUsernameRouteImport.update({
   id: '/models/$username',
   path: '/models/$username',
   getParentRoute: () => rootRouteImport,
+} as any)
+const CreatorContentNewRoute = CreatorContentNewRouteImport.update({
+  id: '/new',
+  path: '/new',
+  getParentRoute: () => CreatorContentRoute,
 } as any)
 
 export interface FileRoutesByFullPath {
@@ -73,8 +139,19 @@ export interface FileRoutesByFullPath {
   '/register': typeof RegisterRoute
   '/wallet': typeof WalletRoute
   '/chat/$threadId': typeof ChatThreadIdRoute
+  '/creator/apply': typeof CreatorApplyRoute
+  '/creator/chat': typeof CreatorChatRoute
+  '/creator/content': typeof CreatorContentRouteWithChildren
+  '/creator/dashboard': typeof CreatorDashboardRoute
+  '/creator/earnings': typeof CreatorEarningsRoute
+  '/creator/kyc': typeof CreatorKycRoute
+  '/creator/phone': typeof CreatorPhoneRoute
+  '/creator/requests': typeof CreatorRequestsRoute
+  '/creator/settings': typeof CreatorSettingsRoute
+  '/creator/stories': typeof CreatorStoriesRoute
   '/models/$username': typeof ModelsUsernameRoute
   '/chat/': typeof ChatIndexRoute
+  '/creator/content/new': typeof CreatorContentNewRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -84,8 +161,19 @@ export interface FileRoutesByTo {
   '/register': typeof RegisterRoute
   '/wallet': typeof WalletRoute
   '/chat/$threadId': typeof ChatThreadIdRoute
+  '/creator/apply': typeof CreatorApplyRoute
+  '/creator/chat': typeof CreatorChatRoute
+  '/creator/content': typeof CreatorContentRouteWithChildren
+  '/creator/dashboard': typeof CreatorDashboardRoute
+  '/creator/earnings': typeof CreatorEarningsRoute
+  '/creator/kyc': typeof CreatorKycRoute
+  '/creator/phone': typeof CreatorPhoneRoute
+  '/creator/requests': typeof CreatorRequestsRoute
+  '/creator/settings': typeof CreatorSettingsRoute
+  '/creator/stories': typeof CreatorStoriesRoute
   '/models/$username': typeof ModelsUsernameRoute
   '/chat': typeof ChatIndexRoute
+  '/creator/content/new': typeof CreatorContentNewRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -96,8 +184,19 @@ export interface FileRoutesById {
   '/register': typeof RegisterRoute
   '/wallet': typeof WalletRoute
   '/chat/$threadId': typeof ChatThreadIdRoute
+  '/creator/apply': typeof CreatorApplyRoute
+  '/creator/chat': typeof CreatorChatRoute
+  '/creator/content': typeof CreatorContentRouteWithChildren
+  '/creator/dashboard': typeof CreatorDashboardRoute
+  '/creator/earnings': typeof CreatorEarningsRoute
+  '/creator/kyc': typeof CreatorKycRoute
+  '/creator/phone': typeof CreatorPhoneRoute
+  '/creator/requests': typeof CreatorRequestsRoute
+  '/creator/settings': typeof CreatorSettingsRoute
+  '/creator/stories': typeof CreatorStoriesRoute
   '/models/$username': typeof ModelsUsernameRoute
   '/chat/': typeof ChatIndexRoute
+  '/creator/content/new': typeof CreatorContentNewRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -109,8 +208,19 @@ export interface FileRouteTypes {
     | '/register'
     | '/wallet'
     | '/chat/$threadId'
+    | '/creator/apply'
+    | '/creator/chat'
+    | '/creator/content'
+    | '/creator/dashboard'
+    | '/creator/earnings'
+    | '/creator/kyc'
+    | '/creator/phone'
+    | '/creator/requests'
+    | '/creator/settings'
+    | '/creator/stories'
     | '/models/$username'
     | '/chat/'
+    | '/creator/content/new'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -120,8 +230,19 @@ export interface FileRouteTypes {
     | '/register'
     | '/wallet'
     | '/chat/$threadId'
+    | '/creator/apply'
+    | '/creator/chat'
+    | '/creator/content'
+    | '/creator/dashboard'
+    | '/creator/earnings'
+    | '/creator/kyc'
+    | '/creator/phone'
+    | '/creator/requests'
+    | '/creator/settings'
+    | '/creator/stories'
     | '/models/$username'
     | '/chat'
+    | '/creator/content/new'
   id:
     | '__root__'
     | '/'
@@ -131,8 +252,19 @@ export interface FileRouteTypes {
     | '/register'
     | '/wallet'
     | '/chat/$threadId'
+    | '/creator/apply'
+    | '/creator/chat'
+    | '/creator/content'
+    | '/creator/dashboard'
+    | '/creator/earnings'
+    | '/creator/kyc'
+    | '/creator/phone'
+    | '/creator/requests'
+    | '/creator/settings'
+    | '/creator/stories'
     | '/models/$username'
     | '/chat/'
+    | '/creator/content/new'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -143,6 +275,16 @@ export interface RootRouteChildren {
   RegisterRoute: typeof RegisterRoute
   WalletRoute: typeof WalletRoute
   ChatThreadIdRoute: typeof ChatThreadIdRoute
+  CreatorApplyRoute: typeof CreatorApplyRoute
+  CreatorChatRoute: typeof CreatorChatRoute
+  CreatorContentRoute: typeof CreatorContentRouteWithChildren
+  CreatorDashboardRoute: typeof CreatorDashboardRoute
+  CreatorEarningsRoute: typeof CreatorEarningsRoute
+  CreatorKycRoute: typeof CreatorKycRoute
+  CreatorPhoneRoute: typeof CreatorPhoneRoute
+  CreatorRequestsRoute: typeof CreatorRequestsRoute
+  CreatorSettingsRoute: typeof CreatorSettingsRoute
+  CreatorStoriesRoute: typeof CreatorStoriesRoute
   ModelsUsernameRoute: typeof ModelsUsernameRoute
   ChatIndexRoute: typeof ChatIndexRoute
 }
@@ -205,6 +347,76 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ChatThreadIdRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/creator/apply': {
+      id: '/creator/apply'
+      path: '/creator/apply'
+      fullPath: '/creator/apply'
+      preLoaderRoute: typeof CreatorApplyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/creator/chat': {
+      id: '/creator/chat'
+      path: '/creator/chat'
+      fullPath: '/creator/chat'
+      preLoaderRoute: typeof CreatorChatRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/creator/content': {
+      id: '/creator/content'
+      path: '/creator/content'
+      fullPath: '/creator/content'
+      preLoaderRoute: typeof CreatorContentRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/creator/dashboard': {
+      id: '/creator/dashboard'
+      path: '/creator/dashboard'
+      fullPath: '/creator/dashboard'
+      preLoaderRoute: typeof CreatorDashboardRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/creator/earnings': {
+      id: '/creator/earnings'
+      path: '/creator/earnings'
+      fullPath: '/creator/earnings'
+      preLoaderRoute: typeof CreatorEarningsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/creator/kyc': {
+      id: '/creator/kyc'
+      path: '/creator/kyc'
+      fullPath: '/creator/kyc'
+      preLoaderRoute: typeof CreatorKycRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/creator/phone': {
+      id: '/creator/phone'
+      path: '/creator/phone'
+      fullPath: '/creator/phone'
+      preLoaderRoute: typeof CreatorPhoneRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/creator/requests': {
+      id: '/creator/requests'
+      path: '/creator/requests'
+      fullPath: '/creator/requests'
+      preLoaderRoute: typeof CreatorRequestsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/creator/settings': {
+      id: '/creator/settings'
+      path: '/creator/settings'
+      fullPath: '/creator/settings'
+      preLoaderRoute: typeof CreatorSettingsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/creator/stories': {
+      id: '/creator/stories'
+      path: '/creator/stories'
+      fullPath: '/creator/stories'
+      preLoaderRoute: typeof CreatorStoriesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/models/$username': {
       id: '/models/$username'
       path: '/models/$username'
@@ -212,8 +424,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ModelsUsernameRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/creator/content/new': {
+      id: '/creator/content/new'
+      path: '/new'
+      fullPath: '/creator/content/new'
+      preLoaderRoute: typeof CreatorContentNewRouteImport
+      parentRoute: typeof CreatorContentRoute
+    }
   }
 }
+
+interface CreatorContentRouteChildren {
+  CreatorContentNewRoute: typeof CreatorContentNewRoute
+}
+
+const CreatorContentRouteChildren: CreatorContentRouteChildren = {
+  CreatorContentNewRoute: CreatorContentNewRoute,
+}
+
+const CreatorContentRouteWithChildren = CreatorContentRoute._addFileChildren(
+  CreatorContentRouteChildren,
+)
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
@@ -223,6 +454,16 @@ const rootRouteChildren: RootRouteChildren = {
   RegisterRoute: RegisterRoute,
   WalletRoute: WalletRoute,
   ChatThreadIdRoute: ChatThreadIdRoute,
+  CreatorApplyRoute: CreatorApplyRoute,
+  CreatorChatRoute: CreatorChatRoute,
+  CreatorContentRoute: CreatorContentRouteWithChildren,
+  CreatorDashboardRoute: CreatorDashboardRoute,
+  CreatorEarningsRoute: CreatorEarningsRoute,
+  CreatorKycRoute: CreatorKycRoute,
+  CreatorPhoneRoute: CreatorPhoneRoute,
+  CreatorRequestsRoute: CreatorRequestsRoute,
+  CreatorSettingsRoute: CreatorSettingsRoute,
+  CreatorStoriesRoute: CreatorStoriesRoute,
   ModelsUsernameRoute: ModelsUsernameRoute,
   ChatIndexRoute: ChatIndexRoute,
 }
