@@ -1,0 +1,3 @@
+- [ ] Complete all remaining TryDiscreet pages and interactions
+- [ ] Redesign the whole app to match uploaded screens and DESIGN.md
+- [ ] Verify desktop and mobile layouts
