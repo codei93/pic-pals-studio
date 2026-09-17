@@ -4,6 +4,7 @@ import { Avatar, Logo } from "./brand";
 import { useTheme } from "@/lib/theme";
 import { useApp } from "@/lib/store";
 import { credits } from "@/lib/mock-data";
+import { Bell, ChevronDown, Moon, Sparkles, Sun, WalletCards } from "lucide-react";
 
 const TABS = [
   { to: "/", label: "Home", icon: "⌂" },
@@ -21,22 +22,25 @@ export function Navbar() {
   const isCreator = pathname.startsWith("/creator");
 
   return (
-    <header className="sticky top-0 z-40 h-16 w-full border-b border-border bg-background">
-      <div className="mx-auto flex h-16 max-w-7xl items-center gap-4 px-4 md:px-6">
-        <Logo />
+    <header className="sticky top-0 z-40 h-16 w-full border-b border-border bg-panel-deep/95 backdrop-blur-xl">
+      <div className="mx-auto grid h-16 max-w-[1440px] grid-cols-[minmax(0,1fr)_auto] items-center gap-3 px-4 md:flex md:px-8">
+        <Logo className="shrink-0" />
 
-        <nav className="ml-6 hidden items-center gap-5 text-sm text-muted-foreground md:flex">
-          <Link to="/" className="hover:text-foreground [&.active]:text-foreground">
-            Browse
-          </Link>
-          <Link to="/feed" className="hover:text-foreground [&.active]:text-foreground">
+        <nav className="ml-8 hidden h-full items-center gap-1 text-xs font-semibold md:flex">
+          <Link to="/feed" className="px-4 py-2 text-muted-foreground hover:text-foreground [&.active]:bg-elevated [&.active]:text-foreground">
             Feed
           </Link>
-          <Link to="/purchases" className="hover:text-foreground [&.active]:text-foreground">
-            Purchases
+          <Link to="/wallet" className="px-4 py-2 text-muted-foreground hover:text-foreground [&.active]:bg-elevated [&.active]:text-foreground">
+            Wallet
           </Link>
-          <Link to="/creator/dashboard" className="hover:text-foreground">
-            Creator Studio
+          <Link to="/chat" className="px-4 py-2 text-muted-foreground hover:text-foreground [&.active]:bg-elevated [&.active]:text-foreground">
+            Chat
+          </Link>
+          <Link to="/purchases" className="px-4 py-2 text-muted-foreground hover:text-foreground [&.active]:bg-elevated [&.active]:text-foreground">
+            Notifications
+          </Link>
+          <Link to="/creator/settings" className="px-4 py-2 text-muted-foreground hover:text-foreground">
+            Settings
           </Link>
         </nav>
 
@@ -44,19 +48,24 @@ export function Navbar() {
           {isCreator ? (
             <span className="pill tag-pill hidden sm:inline-flex">{credits(12500)} earnings</span>
           ) : (
-            <Link to="/wallet" className="text-sm font-bold text-accent">
-              {credits(balance)}
+            <Link to="/wallet" className="pill hidden bg-accent-light text-accent sm:inline-flex">
+              <WalletCards size={14} /> {credits(balance)}
             </Link>
           )}
 
-          <button aria-label="Notifications" className="relative text-lg">
-            🔔
+          <Link to="/creator/dashboard" className="hidden items-center gap-2 bg-elevated px-3 py-2 text-[10px] font-bold uppercase md:flex">
+            <Sparkles size={13} /> Creator portal
+          </Link>
+
+          <button aria-label="Notifications" className="relative grid h-9 w-9 place-items-center bg-elevated">
+            <Bell size={16} />
             <span className="absolute -top-0.5 -right-0.5 h-2.5 w-2.5 rounded-full bg-error" />
           </button>
 
           <div className="relative">
-            <button aria-label="Account menu" onClick={() => setMenu((m) => !m)}>
+            <button aria-label="Account menu" onClick={() => setMenu((m) => !m)} className="flex items-center gap-1">
               <Avatar seed="You Fan" size={32} />
+              <ChevronDown size={12} className="hidden sm:block" />
             </button>
             {menu && (
               <div className="absolute right-0 mt-2 w-40 overflow-hidden rounded-md border border-border bg-surface text-sm">
@@ -78,12 +87,23 @@ export function Navbar() {
             )}
           </div>
 
-          <button aria-label="Toggle theme" onClick={toggle} className="text-lg">
-            {theme === "dark" ? "☀" : "☾"}
+          <button aria-label="Toggle theme" onClick={toggle} className="hidden text-muted-foreground lg:block">
+            {theme === "dark" ? <Sun size={15} /> : <Moon size={15} />}
           </button>
         </div>
       </div>
     </header>
+  );
+}
+
+export function SiteFooter() {
+  return (
+    <footer className="mt-16 border-t border-border bg-panel-deep px-4 py-8 text-xs text-muted-foreground">
+      <div className="mx-auto flex max-w-[1440px] flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+        <p><strong className="text-foreground">Try<span className="text-accent">Discreet</span></strong> — Ultra-discreet nocturnal PPV & creator hub</p>
+        <p>Privacy · Safety & Discretion Policy　 © 2026 TryDiscreet. 18+ Strictly.</p>
+      </div>
+    </footer>
   );
 }
 

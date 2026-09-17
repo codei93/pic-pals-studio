@@ -13,7 +13,7 @@ import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { ThemeProvider } from "../lib/theme";
 import { AppProvider } from "../lib/store";
-import { Navbar, MobileTabs } from "../components/navbar";
+import { Navbar, MobileTabs, SiteFooter } from "../components/navbar";
 import { Chatbot } from "../components/chatbot";
 
 function NotFoundComponent() {
@@ -130,6 +130,7 @@ function RootComponent() {
             <Navbar />
             {/* Required: nested routes render here. */}
             <Outlet />
+            <SiteFooter />
             <MobileTabs />
             <Chatbot />
           </div>

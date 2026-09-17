@@ -7,8 +7,8 @@ import type { PurchaseKind } from "@/lib/mock-data";
 export function Logo({ className = "" }: { className?: string }) {
   return (
     <Link to="/" className={`flex items-center ${className}`}>
-      <img src={logoDark.url} alt="TryDiscreet" className="hidden max-h-10 dark:block" />
-      <img src={logoLight.url} alt="TryDiscreet" className="max-h-10 dark:hidden" />
+      <img src={logoDark.url} alt="TryDiscreet" className="hidden h-9 w-auto max-w-[138px] object-contain dark:block" />
+      <img src={logoLight.url} alt="TryDiscreet" className="h-9 w-auto max-w-[138px] object-contain dark:hidden" />
     </Link>
   );
 }
