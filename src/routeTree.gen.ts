@@ -28,6 +28,7 @@ import { Route as CreatorRequestsRouteImport } from './routes/creator.requests'
 import { Route as CreatorSettingsRouteImport } from './routes/creator.settings'
 import { Route as CreatorStoriesRouteImport } from './routes/creator.stories'
 import { Route as ModelsUsernameRouteImport } from './routes/models.$username'
+import { Route as CreatorContentIndexRouteImport } from './routes/creator.content.index'
 import { Route as CreatorContentNewRouteImport } from './routes/creator.content.new'
 
 const IndexRoute = IndexRouteImport.update({
@@ -125,6 +126,11 @@ const ModelsUsernameRoute = ModelsUsernameRouteImport.update({
   path: '/models/$username',
   getParentRoute: () => rootRouteImport,
 } as any)
+const CreatorContentIndexRoute = CreatorContentIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => CreatorContentRoute,
+} as any)
 const CreatorContentNewRoute = CreatorContentNewRouteImport.update({
   id: '/new',
   path: '/new',
@@ -152,6 +158,7 @@ export interface FileRoutesByFullPath {
   '/models/$username': typeof ModelsUsernameRoute
   '/chat/': typeof ChatIndexRoute
   '/creator/content/new': typeof CreatorContentNewRoute
+  '/creator/content/': typeof CreatorContentIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -163,7 +170,6 @@ export interface FileRoutesByTo {
   '/chat/$threadId': typeof ChatThreadIdRoute
   '/creator/apply': typeof CreatorApplyRoute
   '/creator/chat': typeof CreatorChatRoute
-  '/creator/content': typeof CreatorContentRouteWithChildren
   '/creator/dashboard': typeof CreatorDashboardRoute
   '/creator/earnings': typeof CreatorEarningsRoute
   '/creator/kyc': typeof CreatorKycRoute
@@ -174,6 +180,7 @@ export interface FileRoutesByTo {
   '/models/$username': typeof ModelsUsernameRoute
   '/chat': typeof ChatIndexRoute
   '/creator/content/new': typeof CreatorContentNewRoute
+  '/creator/content': typeof CreatorContentIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -197,6 +204,7 @@ export interface FileRoutesById {
   '/models/$username': typeof ModelsUsernameRoute
   '/chat/': typeof ChatIndexRoute
   '/creator/content/new': typeof CreatorContentNewRoute
+  '/creator/content/': typeof CreatorContentIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -221,6 +229,7 @@ export interface FileRouteTypes {
     | '/models/$username'
     | '/chat/'
     | '/creator/content/new'
+    | '/creator/content/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -232,7 +241,6 @@ export interface FileRouteTypes {
     | '/chat/$threadId'
     | '/creator/apply'
     | '/creator/chat'
-    | '/creator/content'
     | '/creator/dashboard'
     | '/creator/earnings'
     | '/creator/kyc'
@@ -243,6 +251,7 @@ export interface FileRouteTypes {
     | '/models/$username'
     | '/chat'
     | '/creator/content/new'
+    | '/creator/content'
   id:
     | '__root__'
     | '/'
@@ -265,6 +274,7 @@ export interface FileRouteTypes {
     | '/models/$username'
     | '/chat/'
     | '/creator/content/new'
+    | '/creator/content/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -424,6 +434,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ModelsUsernameRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/creator/content/': {
+      id: '/creator/content/'
+      path: '/'
+      fullPath: '/creator/content/'
+      preLoaderRoute: typeof CreatorContentIndexRouteImport
+      parentRoute: typeof CreatorContentRoute
+    }
     '/creator/content/new': {
       id: '/creator/content/new'
       path: '/new'
@@ -436,10 +453,12 @@ declare module '@tanstack/react-router' {
 
 interface CreatorContentRouteChildren {
   CreatorContentNewRoute: typeof CreatorContentNewRoute
+  CreatorContentIndexRoute: typeof CreatorContentIndexRoute
 }
 
 const CreatorContentRouteChildren: CreatorContentRouteChildren = {
   CreatorContentNewRoute: CreatorContentNewRoute,
+  CreatorContentIndexRoute: CreatorContentIndexRoute,
 }
 
 const CreatorContentRouteWithChildren = CreatorContentRoute._addFileChildren(
