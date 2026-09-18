@@ -39,7 +39,7 @@ export function Navbar() {
           <Link to="/purchases" className="px-4 py-2 text-muted-foreground hover:text-foreground [&.active]:bg-elevated [&.active]:text-foreground">
             Notifications
           </Link>
-          <Link to="/creator/settings" className="px-4 py-2 text-muted-foreground hover:text-foreground">
+          <Link to="/creator/settings" className="px-4 py-2 text-muted-foreground hover:text-foreground [&.active]:bg-elevated [&.active]:text-foreground">
             Settings
           </Link>
         </nav>
