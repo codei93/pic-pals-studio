@@ -4,7 +4,7 @@ import { CREATORS, credits } from "@/lib/mock-data";
 import { Avatar, EmptyState } from "@/components/brand";
 import { LockedMedia } from "@/components/locked-media";
 import { useApp } from "@/lib/store";
-import { BadgeCheck, Heart, Image, LockKeyhole, MessageCircle, MoreHorizontal, ShieldCheck, WalletCards } from "lucide-react";
+import { BadgeCheck, Heart, MessageCircle, MoreHorizontal, ShieldCheck, WalletCards } from "lucide-react";
 import zari from "@/assets/creator-zari.jpg";
 import chloe from "@/assets/creator-chloe.jpg";
 import amina from "@/assets/creator-amina.jpg";
@@ -29,7 +29,7 @@ export const Route = createFileRoute("/feed")({
 });
 
 function Feed() {
-  const { following, tip, balance } = useApp();
+  const { following, tip, balance, toggleFollow, isFollowing } = useApp();
   const [tipFor, setTipFor] = useState<string | null>(null);
   const [amount, setAmount] = useState(1000);
 

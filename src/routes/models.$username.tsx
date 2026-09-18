@@ -1,10 +1,10 @@
 import { createFileRoute, notFound, Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { credits, getCreator } from "@/lib/mock-data";
-import { Avatar, KindBadge, TagPills } from "@/components/brand";
+import { Avatar, KindBadge } from "@/components/brand";
 import { LockedMedia } from "@/components/locked-media";
 import { useApp } from "@/lib/store";
-import { BadgeCheck, Heart, ImageIcon, LockKeyhole, MapPin, MessageCircle, MoreHorizontal, Phone, Play, ShieldCheck, Sparkles } from "lucide-react";
+import { BadgeCheck, Heart, ImageIcon, LockKeyhole, MapPin, MessageCircle, MoreHorizontal, Phone, ShieldCheck } from "lucide-react";
 import zari from "@/assets/creator-zari.jpg";
 import shalita from "@/assets/creator-shalita.jpg";
 import chloe from "@/assets/creator-chloe.jpg";
