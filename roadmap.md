@@ -1,3 +1,4 @@
 - [x] Complete all remaining TryDiscreet pages and interactions
 - [x] Redesign the whole app to match uploaded screens and DESIGN.md
 - [x] Verify desktop and mobile layouts
+- [ ] Build and verify shared fan and creator chat workspace
