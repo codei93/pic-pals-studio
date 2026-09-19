@@ -383,7 +383,7 @@ export function ChatWorkspace({
             <span className="h-2 w-2 rounded-full bg-soft-pink" /> Discreet encrypted channel
           </span>
           <span className="hidden sm:inline">
-            End-to-End Encrypted　·　<span className="text-soft-pink">3 Active Inquiries</span>
+            End-to-End Encrypted · <span className="text-soft-pink">3 Active Inquiries</span>
           </span>
         </div>
 
