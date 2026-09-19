@@ -56,13 +56,13 @@ function peerFor(thread: Thread, mode: ChatMode, index: number) {
     return {
       name: FAN_NAMES[index] ?? `@private_patron_${index + 1}`,
       subtitle: index === 0 ? "VIP Tier 2" : index === 1 ? "VIP Patron" : "Private member",
-      image: PORTRAITS[index % PORTRAITS.length],
+      image: PORTRAITS[index % PORTRAITS.length] ?? zariImage,
     };
   }
   return {
     name: creator?.displayName ?? thread.creator,
     subtitle: `@${thread.creator}`,
-    image: PORTRAITS[index % PORTRAITS.length],
+    image: PORTRAITS[index % PORTRAITS.length] ?? zariImage,
   };
 }
 
@@ -181,7 +181,7 @@ function DetailsRail({ mode, peerName, peerImage }: { mode: ChatMode; peerName: 
         <div className="flex items-center justify-between"><p className="text-[9px] font-semibold uppercase text-muted-foreground">Recent unlocks</p><button className="text-[9px] text-soft-pink">View all</button></div>
         {["Midnight Solitude", "Afterhours Reel"].map((title, index) => (
           <div key={title} className="mt-3 flex items-center gap-2 border-t border-border pt-3">
-            <img src={PORTRAITS[index + 1]} alt="" className="h-9 w-9 rounded-sm object-cover" />
+            <img src={PORTRAITS[index + 1] ?? zariImage} alt="" className="h-9 w-9 rounded-sm object-cover" />
             <div className="min-w-0 flex-1"><p className="truncate text-[10px]">{title}</p><p className="text-[9px] text-muted-foreground">{index ? "6d ago · ₡ 8,500" : "3d ago · ₡ 12,000"}</p></div>
             <LockKeyhole size={11} className="text-soft-pink" />
           </div>
