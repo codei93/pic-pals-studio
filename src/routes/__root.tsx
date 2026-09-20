@@ -15,6 +15,7 @@ import { ThemeProvider } from "../lib/theme";
 import { AppProvider } from "../lib/store";
 import { Navbar, MobileTabs, SiteFooter } from "../components/navbar";
 import { Chatbot } from "../components/chatbot";
+import { TooltipProvider } from "../components/ui/tooltip";
 
 function NotFoundComponent() {
   return (
@@ -126,14 +127,16 @@ function RootComponent() {
     <QueryClientProvider client={queryClient}>
       <ThemeProvider>
         <AppProvider>
-          <div className="min-h-screen bg-background pb-16 md:pb-0">
-            <Navbar />
-            {/* Required: nested routes render here. */}
-            <Outlet />
-            <SiteFooter />
-            <MobileTabs />
-            <Chatbot />
-          </div>
+          <TooltipProvider>
+            <div className="min-h-screen bg-background pb-16 md:pb-0">
+              <Navbar />
+              {/* Required: nested routes render here. */}
+              <Outlet />
+              <SiteFooter />
+              <MobileTabs />
+              <Chatbot />
+            </div>
+          </TooltipProvider>
         </AppProvider>
       </ThemeProvider>
     </QueryClientProvider>
