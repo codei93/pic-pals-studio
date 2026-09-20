@@ -32,6 +32,7 @@ import {
   PromptInputTools,
 } from "@/components/ai-elements/prompt-input";
 import { Button } from "@/components/ui/button";
+import { TooltipProvider } from "@/components/ui/tooltip";
 import { CREATORS, THREADS, credits, type Message, type Thread } from "@/lib/mock-data";
 import zariImage from "@/assets/creator-zari.jpg";
 import chloeImage from "@/assets/creator-chloe.jpg";
@@ -447,44 +448,46 @@ export function ChatWorkspace({
         </Conversation>
 
         <div className="shrink-0 border-t border-border bg-panel-deep p-3">
-          <PromptInput
-            className="border-border bg-surface"
-            onSubmit={({ text }) => {
-              const next = text.trim();
-              if (!next) return;
-              setThreadMessages((current) => ({
-                ...current,
-                [activeThread.id]: [
-                  ...(current[activeThread.id] ?? []),
-                  { id: `m-${Date.now()}`, from: currentSender, text: next, time: "now" },
-                ],
-              }));
-              requestAnimationFrame(() => inputRef.current?.focus());
-            }}
-          >
-            <PromptInputTextarea
-              ref={inputRef}
-              autoFocus
-              placeholder="Type encrypted reply..."
-              className="min-h-12 text-xs"
-            />
-            <PromptInputFooter>
-              <PromptInputTools>
-                <PromptInputButton tooltip="Add attachment">
-                  <CirclePlus />
-                </PromptInputButton>
-                <PromptInputButton tooltip="Record voice note">
-                  <Mic />
-                </PromptInputButton>
-                <PromptInputButton tooltip="Add locked media">
-                  <ImageIcon />
-                </PromptInputButton>
-              </PromptInputTools>
-              <PromptInputSubmit className="bg-soft-pink text-panel-deep hover:bg-accent">
-                <Send />
-              </PromptInputSubmit>
-            </PromptInputFooter>
-          </PromptInput>
+          <TooltipProvider>
+            <PromptInput
+              className="border-border bg-surface"
+              onSubmit={({ text }) => {
+                const next = text.trim();
+                if (!next) return;
+                setThreadMessages((current) => ({
+                  ...current,
+                  [activeThread.id]: [
+                    ...(current[activeThread.id] ?? []),
+                    { id: `m-${Date.now()}`, from: currentSender, text: next, time: "now" },
+                  ],
+                }));
+                requestAnimationFrame(() => inputRef.current?.focus());
+              }}
+            >
+              <PromptInputTextarea
+                ref={inputRef}
+                autoFocus
+                placeholder="Type encrypted reply..."
+                className="min-h-12 text-xs"
+              />
+              <PromptInputFooter>
+                <PromptInputTools>
+                  <PromptInputButton tooltip="Add attachment">
+                    <CirclePlus />
+                  </PromptInputButton>
+                  <PromptInputButton tooltip="Record voice note">
+                    <Mic />
+                  </PromptInputButton>
+                  <PromptInputButton tooltip="Add locked media">
+                    <ImageIcon />
+                  </PromptInputButton>
+                </PromptInputTools>
+                <PromptInputSubmit className="bg-soft-pink text-panel-deep hover:bg-accent">
+                  <Send />
+                </PromptInputSubmit>
+              </PromptInputFooter>
+            </PromptInput>
+          </TooltipProvider>
         </div>
       </div>
 
