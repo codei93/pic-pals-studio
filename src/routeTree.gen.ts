@@ -30,7 +30,25 @@ import { Route as CreatorStoriesRouteImport } from './routes/creator.stories'
 import { Route as ModelsUsernameRouteImport } from './routes/models.$username'
 import { Route as CreatorContentIndexRouteImport } from './routes/creator.content.index'
 import { Route as CreatorContentNewRouteImport } from './routes/creator.content.new'
+import { Route as ChoosePathRouteImport } from './routes/choose-path'
+import { Route as FanSetupRouteImport } from './routes/fan-setup'
+import { Route as CreatorProfileRouteImport } from './routes/creator-profile'
 
+const ChoosePathRoute = ChoosePathRouteImport.update({
+  id: '/choose-path',
+  path: '/choose-path',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FanSetupRoute = FanSetupRouteImport.update({
+  id: '/fan-setup',
+  path: '/fan-setup',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CreatorProfileRoute = CreatorProfileRouteImport.update({
+  id: '/creator-profile',
+  path: '/creator-profile',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -141,6 +159,9 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/feed': typeof FeedRoute
   '/login': typeof LoginRoute
+  '/choose-path': typeof ChoosePathRoute
+  '/fan-setup': typeof FanSetupRoute
+  '/creator-profile': typeof CreatorProfileRoute
   '/purchases': typeof PurchasesRoute
   '/register': typeof RegisterRoute
   '/wallet': typeof WalletRoute
@@ -164,6 +185,9 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/feed': typeof FeedRoute
   '/login': typeof LoginRoute
+  '/choose-path': typeof ChoosePathRoute
+  '/fan-setup': typeof FanSetupRoute
+  '/creator-profile': typeof CreatorProfileRoute
   '/purchases': typeof PurchasesRoute
   '/register': typeof RegisterRoute
   '/wallet': typeof WalletRoute
@@ -187,6 +211,9 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/feed': typeof FeedRoute
   '/login': typeof LoginRoute
+  '/choose-path': typeof ChoosePathRoute
+  '/fan-setup': typeof FanSetupRoute
+  '/creator-profile': typeof CreatorProfileRoute
   '/purchases': typeof PurchasesRoute
   '/register': typeof RegisterRoute
   '/wallet': typeof WalletRoute
@@ -212,6 +239,9 @@ export interface FileRouteTypes {
     | '/'
     | '/feed'
     | '/login'
+    | '/choose-path'
+    | '/fan-setup'
+    | '/creator-profile'
     | '/purchases'
     | '/register'
     | '/wallet'
@@ -235,6 +265,9 @@ export interface FileRouteTypes {
     | '/'
     | '/feed'
     | '/login'
+    | '/choose-path'
+    | '/fan-setup'
+    | '/creator-profile'
     | '/purchases'
     | '/register'
     | '/wallet'
@@ -257,6 +290,9 @@ export interface FileRouteTypes {
     | '/'
     | '/feed'
     | '/login'
+    | '/choose-path'
+    | '/fan-setup'
+    | '/creator-profile'
     | '/purchases'
     | '/register'
     | '/wallet'
@@ -281,6 +317,9 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   FeedRoute: typeof FeedRoute
   LoginRoute: typeof LoginRoute
+  ChoosePathRoute: typeof ChoosePathRoute
+  FanSetupRoute: typeof FanSetupRoute
+  CreatorProfileRoute: typeof CreatorProfileRoute
   PurchasesRoute: typeof PurchasesRoute
   RegisterRoute: typeof RegisterRoute
   WalletRoute: typeof WalletRoute
@@ -320,6 +359,27 @@ declare module '@tanstack/react-router' {
       path: '/login'
       fullPath: '/login'
       preLoaderRoute: typeof LoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/choose-path': {
+      id: '/choose-path'
+      path: '/choose-path'
+      fullPath: '/choose-path'
+      preLoaderRoute: typeof ChoosePathRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/fan-setup': {
+      id: '/fan-setup'
+      path: '/fan-setup'
+      fullPath: '/fan-setup'
+      preLoaderRoute: typeof FanSetupRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/creator-profile': {
+      id: '/creator-profile'
+      path: '/creator-profile'
+      fullPath: '/creator-profile'
+      preLoaderRoute: typeof CreatorProfileRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/purchases': {
@@ -469,6 +529,9 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   FeedRoute: FeedRoute,
   LoginRoute: LoginRoute,
+  ChoosePathRoute: ChoosePathRoute,
+  FanSetupRoute: FanSetupRoute,
+  CreatorProfileRoute: CreatorProfileRoute,
   PurchasesRoute: PurchasesRoute,
   RegisterRoute: RegisterRoute,
   WalletRoute: WalletRoute,

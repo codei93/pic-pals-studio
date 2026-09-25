@@ -4,6 +4,7 @@ import {
   Link,
   createRootRouteWithContext,
   useRouter,
+  useLocation,
   HeadContent,
   Scripts,
 } from "@tanstack/react-router";
@@ -120,21 +121,25 @@ function RootShell({ children }: { children: ReactNode }) {
   );
 }
 
+const AUTH_ROUTES = ["/login", "/register", "/choose-path", "/fan-setup", "/creator-profile"];
+
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
+  const location = useLocation();
+  const isAuthRoute = AUTH_ROUTES.some((r) => location.pathname === r || location.pathname.startsWith(r));
 
   return (
     <QueryClientProvider client={queryClient}>
       <ThemeProvider>
         <AppProvider>
           <TooltipProvider>
-            <div className="min-h-screen bg-background pb-16 md:pb-0">
-              <Navbar />
+            <div className={`min-h-screen bg-background ${isAuthRoute ? "" : "pb-16 md:pb-0"}`}>
+              {!isAuthRoute && <Navbar />}
               {/* Required: nested routes render here. */}
               <Outlet />
-              <SiteFooter />
-              <MobileTabs />
-              <Chatbot />
+              {!isAuthRoute && <SiteFooter />}
+              {!isAuthRoute && <MobileTabs />}
+              {!isAuthRoute && <Chatbot />}
             </div>
           </TooltipProvider>
         </AppProvider>
