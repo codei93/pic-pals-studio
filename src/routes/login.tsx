@@ -24,17 +24,13 @@ function Login() {
 
       <BrandHeader />
 
+      <PageHeader
+        label="Sovereign Patron Entry"
+        title="Enter the Vault"
+        subtitle="Cryptographically protected, zero-footprint authentication. Select your sovereign identity provider."
+      />
+
       <Card>
-        <div className="text-center space-y-1.5">
-          <PageLabel>Sovereign Patron Entry</PageLabel>
-          <h1 className="font-display text-4xl font-bold text-white">Enter the Vault</h1>
-          <p className="text-sm text-muted-foreground leading-relaxed">
-            Cryptographically protected, zero-footprint authentication. Select your sovereign identity provider.
-          </p>
-        </div>
-
-        <Divider />
-
         <div className="flex flex-col gap-2.5">
           <AuthButton onClick={handleAuth} icon={<GoogleIcon />} label="Continue with Google" badge="Isolated" badgeIcon={<Lock size={10} />} light />
           <AuthButton onClick={handleAuth} icon={<XIcon />} label="Continue with X" badge="Anonymized" badgeIcon={<Shield size={10} />} />
@@ -47,7 +43,6 @@ function Login() {
             No public activity feeds or social graph telemetry are ever shared with external identity providers.
           </p>
         </div>
-
       </Card>
 
       <p className="text-center text-[11px] text-subtle-foreground px-2 leading-relaxed">
@@ -57,8 +52,6 @@ function Login() {
     </PageShell>
   );
 }
-
-// ── Sub-components ────────────────────────────────────────────────────────────
 
 function AuthButton({
   onClick, icon, label, badge, badgeIcon, light,
@@ -87,7 +80,7 @@ function AuthButton({
   );
 }
 
-// ── Shared primitives (same across all auth pages) ────────────────────────────
+// ── Shared primitives (exported — used by all auth pages) ─────────────────────
 
 export function PageShell({ children }: { children: React.ReactNode }) {
   return (
@@ -108,6 +101,16 @@ export function BrandHeader() {
       <div className="w-8 h-8 rounded-full bg-gradient-to-br from-accent to-accent-dark flex items-center justify-center ml-auto">
         <Diamond size={14} className="text-white" />
       </div>
+    </div>
+  );
+}
+
+export function PageHeader({ label, title, subtitle }: { label: string; title: React.ReactNode; subtitle: string }) {
+  return (
+    <div className="bg-surface border border-border rounded-xl px-6 py-5 flex flex-col items-center text-center gap-2">
+      <PageLabel>{label}</PageLabel>
+      <h1 className="font-display text-4xl font-bold text-white">{title}</h1>
+      <p className="text-sm text-muted-foreground leading-relaxed">{subtitle}</p>
     </div>
   );
 }

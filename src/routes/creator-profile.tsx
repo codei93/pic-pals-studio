@@ -2,7 +2,7 @@ import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
 import { Calendar, Check, Shield } from "lucide-react";
 import {
-  PageShell, BrandHeader, Card, StatusBar, PageLabel,
+  PageShell, BrandHeader, Card, StatusBar, PageHeader,
   Divider, FieldLabel, Hint, PulsingDot, BackButton,
 } from "./login";
 
@@ -42,17 +42,15 @@ function CreatorProfile() {
 
       <BrandHeader />
 
-      <div className="flex flex-col gap-1.5 px-0.5">
-        <PageLabel>Discreet Noir Vault Architecture · Step {step} of 2</PageLabel>
-        <h1 className="font-display text-4xl font-bold text-white">
-          {step === 1 ? "Public Vault Identity" : "Legal Payout Identity"}
-        </h1>
-        <p className="text-sm text-muted-foreground leading-relaxed">
-          {step === 1
+      <PageHeader
+        label={`Discreet Noir Vault Architecture · Step ${step} of 2`}
+        title={step === 1 ? "Public Vault Identity" : "Legal Payout Identity"}
+        subtitle={
+          step === 1
             ? "Configure your creator brand. This is what patrons see on your vault."
-            : "Payout details are zero-knowledge encrypted and used only for settlement clearing."}
-        </p>
-      </div>
+            : "Payout details are zero-knowledge encrypted and used only for settlement clearing."
+        }
+      />
 
       {/* Step progress bar */}
       <div className="flex gap-2">

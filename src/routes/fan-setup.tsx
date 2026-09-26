@@ -2,7 +2,7 @@ import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
 import { Lock, RefreshCw, Shield } from "lucide-react";
 import {
-  PageShell, BrandHeader, Card, StatusBar, PageLabel,
+  PageShell, BrandHeader, Card, StatusBar, PageHeader,
   Divider, FieldLabel, Hint, PulsingDot, BackButton,
 } from "./login";
 
@@ -33,13 +33,11 @@ function FanSetup() {
 
       <BrandHeader />
 
-      <div className="flex flex-col gap-1.5 px-0.5">
-        <PageLabel>Zero-Knowledge Persona · Protocol V4.19</PageLabel>
-        <h1 className="font-display text-4xl font-bold text-white">Fan Persona Setup</h1>
-        <p className="text-sm text-muted-foreground leading-relaxed">
-          Instant activation. Zero KYC required. Your identity remains strictly pseudonymous across all ledger transactions.
-        </p>
-      </div>
+      <PageHeader
+        label="Zero-Knowledge Persona · Protocol V4.19"
+        title="Fan Persona Setup"
+        subtitle="Instant activation. Zero KYC required. Your identity remains strictly pseudonymous across all ledger transactions."
+      />
 
       {/* Progress */}
       <div className="h-px bg-accent rounded-full" />

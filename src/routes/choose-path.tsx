@@ -1,6 +1,6 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { Diamond, Shield } from "lucide-react";
-import { PageShell, BrandHeader, StatusBar, PageLabel, PulsingDot } from "./login";
+import { PageShell, BrandHeader, StatusBar, PageHeader, PulsingDot } from "./login";
 
 export const Route = createFileRoute("/choose-path")({
   head: () => ({
@@ -21,15 +21,11 @@ function ChoosePath() {
 
       <BrandHeader />
 
-      <div className="flex flex-col items-center text-center gap-2 pt-1 pb-2">
-        <PageLabel>Select Your Role</PageLabel>
-        <h1 className="font-display text-4xl font-bold text-white">
-          Choose Your <span className="text-accent">Path</span>
-        </h1>
-        <p className="text-sm text-muted-foreground leading-relaxed max-w-xs">
-          Your credentials remain sovereign, zero-knowledge shielded, and strictly anonymized.
-        </p>
-      </div>
+      <PageHeader
+        label="Select Your Role"
+        title={<>Choose Your <span className="text-accent">Path</span></>}
+        subtitle="Your credentials remain sovereign, zero-knowledge shielded, and strictly anonymized."
+      />
 
       <div className="flex flex-col gap-3">
         {/* Fan — top */}
