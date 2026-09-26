@@ -48,21 +48,6 @@ function Login() {
           </p>
         </div>
 
-        <div className="flex items-center justify-between bg-accent/10 border border-accent/20 rounded-lg px-4 py-3.5">
-          <div className="flex items-center gap-3">
-            <Diamond size={15} className="text-accent shrink-0" />
-            <div>
-              <p className="text-sm font-semibold text-white">Creator Onboarding</p>
-              <p className="text-xs text-subtle-foreground">Applying as an exclusive creator?</p>
-            </div>
-          </div>
-          <button
-            onClick={() => navigate({ to: "/choose-path" })}
-            className="bg-accent hover:bg-accent-dark text-white text-xs font-bold tracking-widest uppercase px-4 py-2 rounded-lg transition-colors whitespace-nowrap"
-          >
-            Creator Portal →
-          </button>
-        </div>
       </Card>
 
       <p className="text-center text-[11px] text-subtle-foreground px-2 leading-relaxed">
