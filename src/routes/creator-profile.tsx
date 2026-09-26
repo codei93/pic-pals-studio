@@ -1,144 +1,136 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
-import { ArrowLeft, Shield, Diamond, CheckSquare, Calendar } from "lucide-react";
+import { ArrowLeft, Calendar, Check, Shield } from "lucide-react";
 
 export const Route = createFileRoute("/creator-profile")({
   head: () => ({
-    meta: [
-      { title: "Creator Profile & Payout Application — TryDiscreet" },
-      { name: "description", content: "Configure your creator brand and payout details." },
-    ],
+    meta: [{ title: "Creator Profile & Payout Application — TryDiscreet" }],
   }),
   component: CreatorProfile,
 });
 
+type Gender = "Female" | "Male" | "Prefer not to say";
+
 function CreatorProfile() {
   const navigate = useNavigate();
+  const [step, setStep] = useState<1 | 2>(1);
+
+  // Step 1 fields
   const [displayName, setDisplayName] = useState("Velvet Siren");
   const [handle, setHandle] = useState("velvetsiren");
   const [bio, setBio] = useState("High-discretion visual artist & model in Kampala. Exclusive private vault drops every Friday night.");
-  const [gender, setGender] = useState<"Female" | "Male" | "Prefer not to say">("Female");
+  const [gender, setGender] = useState<Gender>("Female");
+
+  // Step 2 fields
   const [firstName, setFirstName] = useState("Alex");
   const [middleName, setMiddleName] = useState("Kigozi");
   const [lastName, setLastName] = useState("Kay");
   const [phone, setPhone] = useState("772 123 456");
   const [dob, setDob] = useState({ day: "12", month: "04", year: "1998" });
-  const [agreed, setAgreed] = useState(true);
-
-  const bioLength = bio.length;
+  const [agreed, setAgreed] = useState(false);
 
   return (
-    <div className="min-h-screen bg-[#131313] px-4 py-8">
-      {/* Top bar */}
-      <div className="max-w-2xl mx-auto flex items-center justify-between mb-8">
-        <button
-          onClick={() => navigate({ to: "/choose-path" })}
-          className="flex items-center gap-2 text-[#a0a0a0] hover:text-white text-xs transition-colors"
-        >
-          <ArrowLeft size={14} /> Back to Role Selection
-        </button>
-        <div className="flex items-center gap-2">
-          <span className="w-1.5 h-1.5 rounded-full bg-green-400 inline-block" />
-          <span className="text-[10px] font-bold text-white tracking-wide">Alex Kay</span>
-          <span className="text-[10px] text-[#666]">(alex.kay@gmail.com)</span>
-          <span className="text-[10px] font-bold tracking-widest text-[#ff479c] uppercase ml-1">— Authenticated</span>
+    <PageShell>
+      {/* Back nav */}
+      <div className="flex items-center justify-between px-1">
+        <BackButton
+          label={step === 1 ? "Back to Role Selection" : "Back to Profile"}
+          onClick={() => (step === 1 ? navigate({ to: "/choose-path" }) : setStep(1))}
+        />
+        <div className="flex items-center gap-1.5">
+          <span className="w-1.5 h-1.5 rounded-full bg-success inline-block" />
+          <span className="text-[10px] font-bold tracking-widest text-white">Alex Kay</span>
+          <span className="text-[10px] text-subtle-foreground">(alex.kay@gmail.com)</span>
         </div>
       </div>
 
-      <div className="max-w-2xl mx-auto space-y-6">
-        {/* Header */}
-        <div className="space-y-2">
-          <span className="flex items-center gap-1.5 text-[10px] font-bold tracking-widest text-[#ff479c] uppercase">
-            <Shield size={11} /> Discreet Noir Vault Architecture
-          </span>
-          <h1 className="font-display text-3xl font-bold text-white">Creator Profile & Payout Application</h1>
-          <p className="text-sm text-[#a0a0a0] max-w-lg">
-            Configure your creator brand, payout coordinates, and legal majority. Profile is created in{" "}
-            <span className="font-bold text-white underline decoration-dotted">Inactive state</span>{" "}
-            until identity and payout routing are cryptographically signed.
-          </p>
-        </div>
+      {/* Step progress bar */}
+      <div className="flex gap-2">
+        <div className={`flex-1 h-1 rounded-full transition-colors ${step >= 1 ? "bg-accent" : "bg-border"}`} />
+        <div className={`flex-1 h-1 rounded-full transition-colors ${step >= 2 ? "bg-accent" : "bg-border"}`} />
+      </div>
 
-        {/* Payout badge */}
-        <div className="inline-flex items-center gap-2 bg-[#1c1b1b] border border-[#2e2e2e] rounded-sm px-4 py-2.5">
-          <Shield size={14} className="text-[#ff479c]" />
-          <span className="text-[10px] font-bold tracking-widest text-[#a0a0a0] uppercase">Payout Shield</span>
-          <span className="text-sm font-bold text-white">80/20 Settlement</span>
-        </div>
+      {/* Header */}
+      <div className="flex flex-col gap-1.5 pt-1 px-1">
+        <Label>Discreet Noir Vault Architecture · Step {step} of 2</Label>
+        <h1 className="font-display text-3xl font-bold text-white">
+          {step === 1 ? "Public Vault Identity" : "Legal Payout Identity"}
+        </h1>
+        <p className="text-sm text-muted-foreground leading-relaxed">
+          {step === 1
+            ? "Configure your creator brand. This is what patrons see on your vault."
+            : "Payout details are zero-knowledge encrypted and used only for settlement clearing."}
+        </p>
+      </div>
 
-        {/* Public Vault Identity */}
-        <div className="bg-[#1c1b1b] border border-[#2e2e2e] rounded-sm p-6 space-y-5">
-          <div className="flex items-center justify-between">
-            <h2 className="text-sm font-bold text-white flex items-center gap-2">
-              <span className="text-[#ff479c]">🗂</span> Public Vault Identity
-            </h2>
-            <span className="text-[10px] font-bold tracking-widest text-[#666] uppercase">Public Media Coordinates</span>
-          </div>
+      {/* Payout badge */}
+      <div className="flex items-center gap-2 bg-accent/10 border border-accent/20 rounded-lg px-4 py-2.5 self-start">
+        <Shield size={13} className="text-accent shrink-0" />
+        <span className="text-[10px] font-bold tracking-widest text-muted-foreground uppercase">Payout Shield</span>
+        <span className="text-xs font-bold text-white">80/20 Settlement</span>
+      </div>
 
+      {/* ── STEP 1: Public Vault Identity ───────────────────────────────── */}
+      {step === 1 && (
+        <Card>
           {/* Display Name */}
-          <div className="space-y-1.5">
-            <div className="flex justify-between">
-              <label className="text-xs font-semibold text-white">Creator Display Name *</label>
-              <span className="text-[10px] text-[#666]">Visible to patrons</span>
-            </div>
+          <div className="flex flex-col gap-1.5">
+            <FieldLabel label="Creator Display Name *" hint="Visible to patrons" />
             <div className="relative">
               <input
                 value={displayName}
                 onChange={(e) => setDisplayName(e.target.value)}
-                className="w-full bg-[#131313] border border-[#2e2e2e] rounded-sm px-4 py-3 text-sm text-white focus:border-[#ff479c] focus:outline-none pr-10"
+                className="input pr-10"
               />
-              <span className="absolute right-3 top-1/2 -translate-y-1/2 text-green-400">✓</span>
+              <Check size={14} className="absolute right-3.5 top-1/2 -translate-y-1/2 text-success" />
             </div>
-            <p className="text-[10px] text-[#666]">Imported from verified social authentication channel.</p>
+            <Hint>Imported from verified social authentication channel.</Hint>
           </div>
 
+          <Divider />
+
           {/* Handle */}
-          <div className="space-y-1.5">
-            <div className="flex justify-between">
-              <label className="text-xs font-semibold text-white">Unique Namespace Handle *</label>
-              <span className="text-[10px] text-[#666]">Immutable vanity tag</span>
-            </div>
-            <div className="flex items-center gap-0">
-              <span className="bg-[#2a2a2a] border border-r-0 border-[#2e2e2e] rounded-l-sm px-3 py-3 text-sm text-[#ff479c] font-bold">@</span>
+          <div className="flex flex-col gap-1.5">
+            <FieldLabel label="Unique Namespace Handle *" hint="Immutable vanity tag" />
+            <div className="flex items-stretch">
+              <span className="bg-elevated border border-border rounded-l-md px-3 flex items-center text-sm font-bold text-accent">@</span>
               <input
                 value={handle}
                 onChange={(e) => setHandle(e.target.value.toLowerCase().replace(/[^a-z0-9_]/g, ""))}
-                className="flex-1 bg-[#131313] border border-[#2e2e2e] rounded-r-sm px-4 py-3 text-sm text-white focus:border-[#ff479c] focus:outline-none"
+                className="flex-1 bg-background border border-l-0 border-border rounded-r-md px-4 py-3 text-sm text-white focus:border-accent focus:outline-none"
               />
-              <span className="ml-3 text-[10px] font-bold tracking-widest text-green-400 uppercase">Available</span>
+              <span className="ml-3 text-[10px] font-bold tracking-widest text-success uppercase self-center">Available</span>
             </div>
-            <p className="text-[10px] text-[#666]">
-              Lowercase alphanumeric & underscores. Custom route:{" "}
-              <span className="text-[#a0a0a0]">trydiscreet.com/@{handle}</span>
-            </p>
+            <Hint>Custom route: <span className="text-muted-foreground">trydiscreet.com/@{handle}</span></Hint>
           </div>
 
+          <Divider />
+
           {/* Bio */}
-          <div className="space-y-1.5">
-            <div className="flex justify-between">
-              <label className="text-xs font-semibold text-white">Private Vault Teaser & Bio</label>
-              <span className="text-[10px] text-[#666]">{bioLength} / 500 max</span>
-            </div>
+          <div className="flex flex-col gap-1.5">
+            <FieldLabel label="Private Vault Teaser & Bio" hint={`${bio.length} / 500`} />
             <textarea
               value={bio}
               onChange={(e) => setBio(e.target.value.slice(0, 500))}
               rows={3}
-              className="w-full bg-[#131313] border border-[#2e2e2e] rounded-sm px-4 py-3 text-sm text-white focus:border-[#ff479c] focus:outline-none resize-none"
+              className="input resize-none"
             />
           </div>
 
+          <Divider />
+
           {/* Gender */}
-          <div className="space-y-2">
-            <label className="text-xs font-semibold text-white">Creator Profile Classification</label>
-            <div className="flex gap-2">
-              {(["Female", "Male", "Prefer not to say"] as const).map((g) => (
+          <div className="flex flex-col gap-2">
+            <FieldLabel label="Creator Profile Classification" />
+            <div className="flex gap-2 flex-wrap">
+              {(["Female", "Male", "Prefer not to say"] as Gender[]).map((g) => (
                 <button
                   key={g}
                   onClick={() => setGender(g)}
-                  className={`px-4 py-1.5 text-xs font-semibold rounded-sm transition-colors ${
+                  className={`px-4 py-2 text-xs font-semibold rounded-md transition-colors ${
                     gender === g
-                      ? "bg-[#ff479c] text-white"
-                      : "bg-[#2a2a2a] border border-[#3a3a3a] text-[#a0a0a0] hover:text-white"
+                      ? "bg-accent text-white"
+                      : "bg-elevated border border-border text-subtle-foreground hover:text-white"
                   }`}
                 >
                   {g}
@@ -146,147 +138,194 @@ function CreatorProfile() {
               ))}
             </div>
           </div>
-        </div>
+        </Card>
+      )}
 
-        {/* Legal Payout Identity */}
-        <div className="bg-[#1c1b1b] border border-[#2e2e2e] rounded-sm p-6 space-y-5">
-          <div className="flex items-center justify-between">
-            <h2 className="text-sm font-bold text-white flex items-center gap-2">
-              <span className="text-[#ff479c]">🔐</span> Legal Payout Identity & Remittance
-            </h2>
-            <span className="text-[10px] font-bold tracking-widest text-[#666] uppercase bg-[#131313] border border-[#2e2e2e] px-2 py-1 rounded-sm">
-              Zero-Knowledge Encrypted
-            </span>
-          </div>
-
-          {/* Legal name */}
-          <div className="space-y-1.5">
-            <div className="flex justify-between">
-              <label className="text-xs font-semibold text-white">Legal Full Name *</label>
-              <span className="text-[10px] text-[#666]">Must match government ID exactly for settlement clearing</span>
-            </div>
-            <div className="space-y-2">
-              <div>
-                <input
-                  value={firstName}
-                  onChange={(e) => setFirstName(e.target.value)}
-                  className="w-full bg-[#131313] border border-[#2e2e2e] rounded-sm px-4 py-3 text-sm text-white focus:border-[#ff479c] focus:outline-none"
-                />
-                <span className="text-[10px] text-[#666] mt-1 block">First Name</span>
-              </div>
-              <div>
-                <input
-                  value={middleName}
-                  onChange={(e) => setMiddleName(e.target.value)}
-                  className="w-full bg-[#131313] border border-[#2e2e2e] rounded-sm px-4 py-3 text-sm text-white focus:border-[#ff479c] focus:outline-none"
-                />
-                <span className="text-[10px] text-[#666] mt-1 block">Middle Name (Optional)</span>
-              </div>
-              <div>
-                <input
-                  value={lastName}
-                  onChange={(e) => setLastName(e.target.value)}
-                  className="w-full bg-[#131313] border border-[#2e2e2e] rounded-sm px-4 py-3 text-sm text-white focus:border-[#ff479c] focus:outline-none"
-                />
-                <span className="text-[10px] text-[#666] mt-1 block">Last Name</span>
-              </div>
-            </div>
-          </div>
-
-          {/* Phone */}
-          <div className="space-y-1.5">
-            <div className="flex justify-between">
-              <label className="text-xs font-semibold text-white">Mobile Settlement Terminal *</label>
-              <span className="text-[10px] font-bold tracking-widest text-[#666] uppercase bg-[#131313] border border-[#2e2e2e] px-2 py-1 rounded-sm">
-                MTN MoMo & Airtel Ready
+      {/* ── STEP 2: Legal Payout Identity ───────────────────────────────── */}
+      {step === 2 && (
+        <>
+          <Card>
+            {/* Zero-knowledge badge */}
+            <div className="flex items-center gap-2">
+              <span className="text-[10px] font-bold tracking-widest text-subtle-foreground uppercase bg-background border border-border rounded-md px-2.5 py-1">
+                🔐 Zero-Knowledge Encrypted
               </span>
             </div>
-            <div className="flex gap-2">
-              <div className="bg-[#131313] border border-[#2e2e2e] rounded-sm px-3 py-3 text-sm text-white flex items-center gap-1 min-w-fit">
-                +256 (Uganda) ▾
+
+            {/* Legal name */}
+            <div className="flex flex-col gap-1.5">
+              <FieldLabel label="Legal Full Name *" hint="Must match government ID" />
+              <div className="flex flex-col gap-2">
+                {[
+                  { val: firstName, set: setFirstName, placeholder: "First Name" },
+                  { val: middleName, set: setMiddleName, placeholder: "Middle Name (Optional)" },
+                  { val: lastName, set: setLastName, placeholder: "Last Name" },
+                ].map(({ val, set, placeholder }) => (
+                  <div key={placeholder}>
+                    <input
+                      value={val}
+                      onChange={(e) => set(e.target.value)}
+                      placeholder={placeholder}
+                      className="input"
+                    />
+                    <Hint>{placeholder}</Hint>
+                  </div>
+                ))}
               </div>
-              <input
-                value={phone}
-                onChange={(e) => setPhone(e.target.value)}
-                className="flex-1 bg-[#131313] border border-[#2e2e2e] rounded-sm px-4 py-3 text-sm text-white focus:border-[#ff479c] focus:outline-none"
-                placeholder="772 123 456"
+            </div>
+
+            <Divider />
+
+            {/* Phone */}
+            <div className="flex flex-col gap-1.5">
+              <FieldLabel
+                label="Mobile Settlement Terminal *"
+                hint={<span className="text-success">MTN MoMo & Airtel Ready</span>}
               />
-            </div>
-            <p className="text-[10px] text-[#666]">Instant micro-settlements routed in UGX directly upon PPV unlocks.</p>
-          </div>
-
-          {/* DOB */}
-          <div className="space-y-1.5">
-            <div className="flex justify-between">
-              <label className="text-xs font-semibold text-white">Date of Birth *</label>
-              <span className="text-[10px] font-bold tracking-widest text-[#666] uppercase bg-[#131313] border border-[#2e2e2e] px-2 py-1 rounded-sm">
-                18+ Mandatory Protocol
-              </span>
-            </div>
-            <div className="relative">
-              <div className="flex items-center gap-2 bg-[#131313] border border-[#2e2e2e] rounded-sm px-4 py-3">
+              <div className="flex gap-2">
+                <div className="bg-background border border-border rounded-md px-3 py-3 text-sm text-white flex items-center gap-1 whitespace-nowrap">
+                  +256 (UG) ▾
+                </div>
                 <input
-                  value={dob.day}
-                  onChange={(e) => setDob((d) => ({ ...d, day: e.target.value }))}
-                  className="bg-transparent w-8 text-sm text-white focus:outline-none text-center"
-                  maxLength={2}
-                  placeholder="DD"
+                  value={phone}
+                  onChange={(e) => setPhone(e.target.value)}
+                  className="input flex-1"
+                  placeholder="772 123 456"
                 />
-                <span className="text-[#666]">/</span>
-                <input
-                  value={dob.month}
-                  onChange={(e) => setDob((d) => ({ ...d, month: e.target.value }))}
-                  className="bg-transparent w-8 text-sm text-white focus:outline-none text-center"
-                  maxLength={2}
-                  placeholder="MM"
-                />
-                <span className="text-[#666]">/</span>
-                <input
-                  value={dob.year}
-                  onChange={(e) => setDob((d) => ({ ...d, year: e.target.value }))}
-                  className="bg-transparent w-16 text-sm text-white focus:outline-none text-center"
-                  maxLength={4}
-                  placeholder="YYYY"
-                />
-                <Calendar size={16} className="ml-auto text-[#666]" />
               </div>
+              <Hint>Instant micro-settlements routed in UGX directly upon PPV unlocks.</Hint>
             </div>
-            <p className="text-[10px] text-[#666]">Cross-referenced against physical passport / national ID during Step 2.</p>
-          </div>
-        </div>
 
-        {/* Agreement */}
-        <div className="flex items-start gap-3">
-          <button
-            onClick={() => setAgreed(!agreed)}
-            className={`mt-0.5 w-4 h-4 rounded-sm border flex items-center justify-center shrink-0 transition-colors ${
-              agreed ? "bg-[#ff479c] border-[#ff479c]" : "border-[#3a3a3a] bg-[#131313]"
-            }`}
-          >
-            {agreed && <span className="text-white text-[10px] font-bold">✓</span>}
-          </button>
-          <p className="text-xs text-[#a0a0a0] leading-relaxed">
-            I certify under penalty of account forfeiture that I am at least{" "}
-            <span className="font-bold text-white">18 years of age</span>, formally agree to the{" "}
-            <span className="text-[#ff479c] underline cursor-pointer">80/20 Sovereign Creator Settlement Charter</span>, and acknowledge that my
-            creator profile and media vault will remain designated as{" "}
-            <span className="font-bold text-white">Inactive</span> until biometric and government identity verification is approved in Step 2.
-          </p>
-        </div>
+            <Divider />
 
-        {/* CTA */}
+            {/* DOB */}
+            <div className="flex flex-col gap-1.5">
+              <FieldLabel
+                label="Date of Birth *"
+                hint={<span className="text-accent">18+ Mandatory Protocol</span>}
+              />
+              <div className="flex items-center gap-2 bg-background border border-border rounded-md px-4 py-3">
+                {[
+                  { val: dob.day, key: "day" as const, max: 2, placeholder: "DD", w: "w-8" },
+                  { val: dob.month, key: "month" as const, max: 2, placeholder: "MM", w: "w-8" },
+                  { val: dob.year, key: "year" as const, max: 4, placeholder: "YYYY", w: "w-14" },
+                ].map(({ val, key, max, placeholder, w }, i) => (
+                  <span key={key} className="flex items-center gap-2">
+                    {i > 0 && <span className="text-subtle-foreground">/</span>}
+                    <input
+                      value={val}
+                      onChange={(e) => setDob((d) => ({ ...d, [key]: e.target.value }))}
+                      maxLength={max}
+                      placeholder={placeholder}
+                      className={`bg-transparent ${w} text-sm text-white focus:outline-none text-center`}
+                    />
+                  </span>
+                ))}
+                <Calendar size={14} className="ml-auto text-subtle-foreground" />
+              </div>
+              <Hint>Cross-referenced against physical passport / national ID during Step 2.</Hint>
+            </div>
+          </Card>
+
+          {/* Agreement */}
+          <label className="flex items-start gap-3 cursor-pointer px-1">
+            <div
+              onClick={() => setAgreed(!agreed)}
+              className={`mt-0.5 w-4 h-4 rounded border-2 flex items-center justify-center shrink-0 transition-colors ${
+                agreed ? "bg-accent border-accent" : "border-border-light bg-background"
+              }`}
+            >
+              {agreed && <span className="text-white text-[10px] font-black leading-none">✓</span>}
+            </div>
+            <p className="text-xs text-muted-foreground leading-relaxed">
+              I certify under penalty of account forfeiture that I am at least{" "}
+              <span className="font-semibold text-white">18 years of age</span>, formally agree to the{" "}
+              <span className="text-accent underline cursor-pointer">80/20 Sovereign Creator Settlement Charter</span>, and acknowledge that my
+              creator profile and media vault will remain designated as{" "}
+              <span className="font-semibold text-white">Inactive</span> until biometric and government identity verification is approved in Step 2.
+            </p>
+          </label>
+        </>
+      )}
+
+      {/* Navigation buttons */}
+      {step === 1 ? (
         <button
-          onClick={() => navigate({ to: "/creator/kyc" })}
-          className="w-full bg-[#ff479c] hover:bg-[#e03585] text-[#0d0d0d] font-bold py-4 rounded-sm text-sm tracking-wide transition-colors flex items-center justify-center gap-2"
+          onClick={() => setStep(2)}
+          className="w-full bg-accent hover:bg-accent-dark text-white font-bold py-4 rounded-xl text-sm tracking-wide transition-colors"
+        >
+          Continue to Payout Identity →
+        </button>
+      ) : (
+        <button
+          onClick={() => agreed && navigate({ to: "/creator/kyc" })}
+          disabled={!agreed}
+          className="w-full bg-accent hover:bg-accent-dark disabled:opacity-40 disabled:cursor-not-allowed text-white font-bold py-4 rounded-xl text-sm tracking-wide transition-colors"
         >
           Save Profile & Proceed to KYC Verification →
         </button>
+      )}
 
-        <p className="text-center text-[10px] text-[#666] flex items-center justify-center gap-1">
-          <span>⏱</span> Next step: Automatic transition to{" "}
-          <span className="text-[#a0a0a0]">/creator/kyc</span> for National ID & Zero-Knowledge Selfie Scan. Payout ledger unlocks immediately upon review.
-        </p>
-      </div>
+      <p className="text-center text-[11px] text-subtle-foreground pb-2">
+        {step === 1
+          ? "Your public identity data is end-to-end encrypted at rest."
+          : "Next: /creator/kyc — National ID & Zero-Knowledge Selfie Scan. Payout ledger unlocks immediately upon review."}
+      </p>
+    </PageShell>
+  );
+}
+
+// ── Shared primitives ─────────────────────────────────────────────────────────
+
+function PageShell({ children }: { children: React.ReactNode }) {
+  return (
+    <div className="min-h-screen bg-background flex flex-col items-center px-4 py-10">
+      <div className="w-full max-w-[520px] flex flex-col gap-4">{children}</div>
     </div>
   );
+}
+
+function Card({ children }: { children: React.ReactNode }) {
+  return (
+    <div className="bg-surface border border-border rounded-xl p-5 flex flex-col gap-4">{children}</div>
+  );
+}
+
+function Label({ children }: { children: React.ReactNode }) {
+  return <p className="text-[10px] font-bold tracking-widest text-accent uppercase">{children}</p>;
+}
+
+function FieldLabel({ label, hint }: { label: string; hint?: React.ReactNode }) {
+  return (
+    <div className="flex items-center justify-between">
+      <p className="text-xs font-semibold text-white">{label}</p>
+      {hint && <span className="text-[10px] text-subtle-foreground flex items-center gap-1">{hint}</span>}
+    </div>
+  );
+}
+
+function Hint({ children }: { children: React.ReactNode }) {
+  return <p className="text-[11px] text-subtle-foreground leading-snug">{children}</p>;
+}
+
+function Divider() {
+  return <div className="border-t border-border" />;
+}
+
+function BackButton({ label, onClick }: { label: string; onClick: () => void }) {
+  return (
+    <button
+      onClick={onClick}
+      className="flex items-center gap-2 text-subtle-foreground hover:text-white text-xs font-medium transition-colors"
+    >
+      <ArrowLeft size={13} /> {label}
+    </button>
+  );
+}
+
+// Tailwind class shorthand — extend global styles
+declare module "react" {
+  interface HTMLAttributes<T> {
+    class?: string;
+  }
 }

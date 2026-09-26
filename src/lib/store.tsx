@@ -8,8 +8,14 @@ import {
 } from "./mock-data";
 
 export type KycStatus = "not_submitted" | "under_review" | "verified" | "rejected";
+export type UserRole = "fan" | "creator" | null;
 
 type Ctx = {
+  isAuthenticated: boolean;
+  userRole: UserRole;
+  login: () => void;
+  logout: () => void;
+  setUserRole: (role: UserRole) => void;
   balance: number;
   transactions: Transaction[];
   purchases: Purchase[];
@@ -37,6 +43,8 @@ const AppContext = createContext<Ctx | null>(null);
 const today = "14 Sep 2026";
 
 export function AppProvider({ children }: { children: ReactNode }) {
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [userRole, setUserRole] = useState<UserRole>(null);
   const [balance, setBalance] = useState(45000);
   const [transactions, setTransactions] = useState<Transaction[]>(INITIAL_TRANSACTIONS);
   const [purchases, setPurchases] = useState<Purchase[]>(INITIAL_PURCHASES);
@@ -48,6 +56,11 @@ export function AppProvider({ children }: { children: ReactNode }) {
     const addTx = (tx: Transaction) => setTransactions((prev) => [tx, ...prev]);
 
     return {
+      isAuthenticated,
+      userRole,
+      login: () => setIsAuthenticated(true),
+      logout: () => { setIsAuthenticated(false); setUserRole(null); },
+      setUserRole,
       balance,
       transactions,
       purchases,
