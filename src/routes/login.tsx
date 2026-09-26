@@ -1,5 +1,5 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
-import { Diamond, EyeOff, Fingerprint, Lock, Shield } from "lucide-react";
+import { Diamond, Fingerprint, Lock, Shield } from "lucide-react";
 
 export const Route = createFileRoute("/login")({
   head: () => ({
@@ -17,67 +17,30 @@ function Login() {
 
   return (
     <PageShell>
-      {/* Status bar */}
       <StatusBar
-        left={<><PulsingDot color="green" /> Enclave Online</>}
+        left={<><PulsingDot /> Enclave Online</>}
         right={<><Shield size={11} /> Zero-Footprint ID</>}
       />
 
-      {/* Logo */}
-      <div className="flex flex-col items-center gap-3 py-8">
-        <div className="flex items-center gap-3 bg-surface border border-border rounded-md px-5 py-3">
-          <span className="font-display text-xl font-bold tracking-tight">
-            <span className="text-accent">try</span><span className="text-white">discreet</span>
-          </span>
-          <span className="h-4 w-px bg-border" />
-          <span className="text-[10px] tracking-widest text-subtle-foreground uppercase">Discreet. Private. Yours.</span>
-          <div className="w-8 h-8 rounded-full bg-gradient-to-br from-accent to-accent-dark flex items-center justify-center ml-1">
-            <Diamond size={14} className="text-white" />
-          </div>
-        </div>
-      </div>
+      <BrandHeader />
 
-      {/* Card */}
       <Card>
-        <div className="text-center space-y-2 pb-2">
-          <Label>Sovereign Patron Entry</Label>
+        <div className="text-center space-y-1.5">
+          <PageLabel>Sovereign Patron Entry</PageLabel>
           <h1 className="font-display text-4xl font-bold text-white">Enter the Vault</h1>
-          <p className="text-sm text-muted-foreground leading-relaxed max-w-sm mx-auto">
+          <p className="text-sm text-muted-foreground leading-relaxed">
             Cryptographically protected, zero-footprint authentication. Select your sovereign identity provider.
           </p>
         </div>
 
         <Divider />
 
-        <div className="space-y-3">
-          <button
-            onClick={handleAuth}
-            className="w-full flex items-center justify-between bg-white text-[#131313] font-semibold text-sm px-5 py-3.5 rounded-md hover:bg-gray-100 transition-colors group"
-          >
-            <div className="flex items-center gap-3">
-              <GoogleIcon />
-              Continue with Google
-            </div>
-            <span className="flex items-center gap-1.5 text-[10px] font-bold tracking-widest text-[#888] uppercase">
-              <Lock size={10} /> Isolated
-            </span>
-          </button>
-
-          <button
-            onClick={handleAuth}
-            className="w-full flex items-center justify-between bg-elevated border border-border-light text-white font-semibold text-sm px-5 py-3.5 rounded-md hover:bg-[#333] transition-colors"
-          >
-            <div className="flex items-center gap-3">
-              <XIcon />
-              Continue with X
-            </div>
-            <span className="flex items-center gap-1.5 text-[10px] font-bold tracking-widest text-subtle-foreground uppercase">
-              <Shield size={10} /> Anonymized
-            </span>
-          </button>
+        <div className="flex flex-col gap-2.5">
+          <AuthButton onClick={handleAuth} icon={<GoogleIcon />} label="Continue with Google" badge="Isolated" badgeIcon={<Lock size={10} />} light />
+          <AuthButton onClick={handleAuth} icon={<XIcon />} label="Continue with X" badge="Anonymized" badgeIcon={<Shield size={10} />} />
         </div>
 
-        <div className="bg-background border border-border rounded-md px-4 py-3 flex items-start gap-3">
+        <div className="bg-background border border-border rounded-lg px-4 py-3 flex items-start gap-3">
           <Fingerprint size={15} className="text-accent mt-0.5 shrink-0" />
           <p className="text-xs text-muted-foreground leading-relaxed">
             <span className="font-semibold text-white">Instant zero-trace login.</span>{" "}
@@ -85,25 +48,7 @@ function Login() {
           </p>
         </div>
 
-        <Divider label="Sovereign Protocol Guarantees" />
-
-        <div className="space-y-2">
-          {[
-            { icon: <EyeOff size={14} />, title: "Zero Data Leakage", desc: "Social credentials verify identity, nothing more." },
-            { icon: <Fingerprint size={14} />, title: "Anonymous Identity", desc: "Real names never appear on comments or unlocks." },
-            { icon: <Lock size={14} />, title: "TLS 1.3 / E2E Protocol", desc: "Enclave protected Bitstream session tokens." },
-          ].map(({ icon, title, desc }) => (
-            <div key={title} className="flex items-start gap-3 bg-background border border-border rounded-md px-4 py-3">
-              <span className="text-subtle-foreground mt-0.5 shrink-0">{icon}</span>
-              <div>
-                <p className="text-sm font-semibold text-white">{title}</p>
-                <p className="text-xs text-subtle-foreground mt-0.5">{desc}</p>
-              </div>
-            </div>
-          ))}
-        </div>
-
-        <div className="flex items-center justify-between bg-accent/10 border border-accent/20 rounded-md px-4 py-3">
+        <div className="flex items-center justify-between bg-accent/10 border border-accent/20 rounded-lg px-4 py-3.5">
           <div className="flex items-center gap-3">
             <Diamond size={15} className="text-accent shrink-0" />
             <div>
@@ -113,14 +58,14 @@ function Login() {
           </div>
           <button
             onClick={() => navigate({ to: "/choose-path" })}
-            className="bg-accent hover:bg-accent-dark text-white text-xs font-bold tracking-widest uppercase px-4 py-2 rounded-md transition-colors whitespace-nowrap flex items-center gap-1.5"
+            className="bg-accent hover:bg-accent-dark text-white text-xs font-bold tracking-widest uppercase px-4 py-2 rounded-lg transition-colors whitespace-nowrap"
           >
             Creator Portal →
           </button>
         </div>
       </Card>
 
-      <p className="text-center text-[11px] text-subtle-foreground px-4 leading-relaxed mt-2">
+      <p className="text-center text-[11px] text-subtle-foreground px-2 leading-relaxed">
         <span className="font-semibold text-muted-foreground">18+ Adult Sovereign Entertainment Affirmation.</span>{" "}
         By proceeding, you verify that you are at least 18 years of age or the age of legal majority in your jurisdiction.
       </p>
@@ -128,38 +73,80 @@ function Login() {
   );
 }
 
-// ── Shared design primitives ──────────────────────────────────────────────────
+// ── Sub-components ────────────────────────────────────────────────────────────
 
-function PageShell({ children }: { children: React.ReactNode }) {
+function AuthButton({
+  onClick, icon, label, badge, badgeIcon, light,
+}: {
+  onClick: () => void;
+  icon: React.ReactNode;
+  label: string;
+  badge: string;
+  badgeIcon: React.ReactNode;
+  light?: boolean;
+}) {
+  return (
+    <button
+      onClick={onClick}
+      className={`w-full flex items-center justify-between px-5 py-3.5 rounded-lg font-semibold text-sm transition-colors ${
+        light
+          ? "bg-white text-[#131313] hover:bg-gray-100"
+          : "bg-elevated border border-border-light text-white hover:bg-[#333]"
+      }`}
+    >
+      <span className="flex items-center gap-3">{icon}{label}</span>
+      <span className={`flex items-center gap-1.5 text-[10px] font-bold tracking-widest uppercase ${light ? "text-[#999]" : "text-subtle-foreground"}`}>
+        {badgeIcon}{badge}
+      </span>
+    </button>
+  );
+}
+
+// ── Shared primitives (same across all auth pages) ────────────────────────────
+
+export function PageShell({ children }: { children: React.ReactNode }) {
   return (
     <div className="min-h-screen bg-background flex flex-col items-center px-4 py-10">
-      <div className="w-full max-w-[520px] flex flex-col gap-4">{children}</div>
+      <div className="w-full max-w-[520px] flex flex-col gap-5">{children}</div>
     </div>
   );
 }
 
-function Card({ children }: { children: React.ReactNode }) {
+export function BrandHeader() {
   return (
-    <div className="bg-surface border border-border rounded-xl p-6 flex flex-col gap-5">
-      {children}
+    <div className="flex items-center justify-center gap-3 bg-surface border border-border rounded-xl px-5 py-3.5">
+      <span className="font-display text-xl font-bold tracking-tight leading-none">
+        <span className="text-accent">try</span><span className="text-white">discreet</span>
+      </span>
+      <span className="h-4 w-px bg-border" />
+      <span className="text-[11px] tracking-widest text-subtle-foreground">Discreet. Private. Yours.</span>
+      <div className="w-8 h-8 rounded-full bg-gradient-to-br from-accent to-accent-dark flex items-center justify-center ml-auto">
+        <Diamond size={14} className="text-white" />
+      </div>
     </div>
   );
 }
 
-function StatusBar({ left, right }: { left: React.ReactNode; right: React.ReactNode }) {
+export function Card({ children }: { children: React.ReactNode }) {
   return (
-    <div className="flex items-center justify-between px-1">
+    <div className="bg-surface border border-border rounded-xl p-6 flex flex-col gap-5">{children}</div>
+  );
+}
+
+export function StatusBar({ left, right }: { left: React.ReactNode; right: React.ReactNode }) {
+  return (
+    <div className="flex items-center justify-between px-0.5">
       <span className="flex items-center gap-1.5 text-[10px] font-bold tracking-widest text-success uppercase">{left}</span>
       <span className="flex items-center gap-1.5 text-[10px] font-bold tracking-widest text-subtle-foreground uppercase">{right}</span>
     </div>
   );
 }
 
-function Label({ children }: { children: React.ReactNode }) {
+export function PageLabel({ children }: { children: React.ReactNode }) {
   return <p className="text-[10px] font-bold tracking-widest text-accent uppercase">{children}</p>;
 }
 
-function Divider({ label }: { label?: string }) {
+export function Divider({ label }: { label?: string }) {
   if (!label) return <div className="border-t border-border" />;
   return (
     <div className="flex items-center gap-3">
@@ -170,9 +157,29 @@ function Divider({ label }: { label?: string }) {
   );
 }
 
-function PulsingDot({ color }: { color: "green" | "pink" }) {
-  const cls = color === "green" ? "bg-success" : "bg-accent";
-  return <span className={`w-1.5 h-1.5 rounded-full ${cls} inline-block`} />;
+export function FieldLabel({ label, hint }: { label: string; hint?: React.ReactNode }) {
+  return (
+    <div className="flex items-center justify-between">
+      <p className="text-xs font-semibold text-white">{label}</p>
+      {hint && <span className="text-[10px] text-subtle-foreground flex items-center gap-1">{hint}</span>}
+    </div>
+  );
+}
+
+export function Hint({ children }: { children: React.ReactNode }) {
+  return <p className="text-[11px] text-subtle-foreground leading-snug">{children}</p>;
+}
+
+export function PulsingDot({ color = "green" }: { color?: "green" | "pink" }) {
+  return <span className={`w-1.5 h-1.5 rounded-full inline-block ${color === "green" ? "bg-success" : "bg-accent"}`} />;
+}
+
+export function BackButton({ label, onClick }: { label: string; onClick: () => void }) {
+  return (
+    <button onClick={onClick} className="flex items-center gap-1.5 text-subtle-foreground hover:text-white text-xs font-medium transition-colors">
+      ← {label}
+    </button>
+  );
 }
 
 function GoogleIcon() {
